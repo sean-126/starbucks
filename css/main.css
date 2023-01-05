@@ -5,6 +5,7 @@ body {
   font-weight: 400;
   line-height: 1.4;
   font-family: "Noto Sans KR", sans-serif;
+  height: 3000px;
 }
 
 img {
@@ -15,17 +16,24 @@ a {
   text-decoration: none;
 }
 
-/* HEADER */
-header {
-  background-color: royalblue;
+/* inner class 공통 코드 */
+.inner {
+  width: 1100px;
+  margin: 0 auto;
+  position: relative;
 }
 
-header .inner {
-  width: 1100px;
+/* HEADER */
+header {
+  background-color: #f6f5f0;
+  border-bottom: 1px solid #c8c8c8;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+header > .inner {
   height: 120px;
-  margin: 0 auto;
-  background-color: orange;
-  position: relative;
 }
 
 header .logo {
@@ -36,10 +44,13 @@ header .logo {
   left: 0;
   /* top, bottom으로 수직정렬했고 left로 무조건 왼쪽에 붙어있게 작성함 */
   margin: auto;
-  display: none;
 }
 
 header .sub-menu {
+  /* sub-menu 안에 있는 요소는 flex로 정렬하고 sub-menu는 부모요소 기준으로 top:10px, right:0에 배치 */
+  position: absolute;
+  top: 10px;
+  right: 0;
   display: flex;
 }
 
@@ -52,6 +63,7 @@ header .sub-menu ul.menu li {
   position: relative;
 }
 header .sub-menu ul.menu li::before {
+  /* 메뉴 사이사이에 막대 */
   content: "";
   display: block;
   width: 1px;
@@ -63,10 +75,12 @@ header .sub-menu ul.menu li::before {
   margin: auto 0;
 }
 header .sub-menu ul.menu li:first-child:before {
+  /* 메뉴 맨 앞에 생기는 막대 제거 */
   display: none;
 }
 
 header .sub-menu ul.menu li a {
+  /* a 태그로 생성한 메뉴 버튼 누르기 쉽게 영역 생성 */
   color: #656565;
   font-size: 12px;
   padding: 11px 16px;
@@ -100,10 +114,115 @@ header .sub-menu .search input:focus {
 }
 
 header .sub-menu .search .material-icons {
+  /* input 안에 배치 */
   height: 24px;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 5px;
   margin: auto;
+  transition: .4s;
+}
+header .sub-menu .search.focused .material-icons {
+  /* input 요소를 클릭하면 search 아이콘을 안보이게 하겠다. */
+  opacity: 0;
+}
+
+header .main-menu {
+  /* 메뉴 아이템들을 flex로 정렬하고 메뉴를 position으로 배치 */
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+header .main-menu .item{
+
+}
+
+header .main-menu .item .item__name{
+  padding: 10px 20px 34px 20px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+header .main-menu .item:hover .item__name{
+  /* name과 함께 contents도 hover 효과가 있어야하기때문에 item에 hover 속성을 붙임 */
+  background-color: #2c2a29;
+  color: #669900;
+  border-radius: 6px 6px 0 0;
+}
+
+header .main-menu .item .item__contents{
+  /* top이나 bottom 속성을 사용하지 않아 수직 위치값이 없다면, 요소의 원래 위치를 그대로 사용합니다. */
+  /* 만약 position: absolute;를 사용했다면, (위치상) 부모 요소를 기준으로 하므로 화면의 뷰포트 좌우 끝까지 늘어날 수 없게 됩니다. */
+  width: 100%;
+  position: fixed;
+  left: 0;
+  display: none;
+}
+header .main-menu .item:hover .item__contents{
+  /* 메뉴 item을 hover시 display: none;에서 block;으로 변경하는 코드 */
+  display: block;
+}
+
+header .main-menu .item .item__contents .contents__menu{
+  background-color: #2c2a29;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul {
+  /* contents__menu에 메뉴들을 수평 정렬 */
+  display: flex;
+  padding: 20px 0;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li {
+  width: 220px;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li h4 {
+  padding: 3px 0 12px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li ul li {
+  padding: 5px 0;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+
+header .main-menu .item .item__contents .contents__menu > ul > li ul li:hover {
+  color: #669900;
+}
+
+header .main-menu .item .item__contents .contents__texture{
+  font-size: 12px;
+  padding: 26px 0;
+  background-image: url('../images/main_menu_pattern.jpg');
+}
+
+header .main-menu .item .item__contents .contents__texture h4 {
+  color: #999;
+  font-weight: 700;
+}
+
+header .main-menu .item .item__contents .contents__texture p {
+  color: #669900;
+  margin: 4px 0 14px;
+}
+
+header .badges {
+  position: absolute;
+  top: 132px;
+  right: 12px;
+}
+
+header .badges .badge {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, .15);
+  cursor: pointer;
 }
