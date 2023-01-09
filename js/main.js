@@ -23,6 +23,8 @@ searchInputEl.addEventListener('blur', function () {
 const badgeEl = document.querySelector('header .badges');
 
 // 로드한 lodash에 throttle 기능을 사용해서 0.3초마다 function 실행 횟수를 제한
+// _.throttle(사용할 함수, 시간)
+// gsap.to(요소, 지속시간, 옵션) 옵션은 객체로 사용하는 경우가 많음;
 window.addEventListener('scroll', _.throttle(function () {
   console.log(scrollY);
   if (window.scrollY > 500) {
@@ -41,5 +43,13 @@ window.addEventListener('scroll', _.throttle(function () {
     });
   }
 }, 300));
-// _.throttle(사용할 함수, 시간)
-// gsap.to(요소, 지속시간, 옵션) 옵션은 객체로 사용하는 경우가 많음;
+
+const fadeEls = document.querySelectorAll('.visual .fade-in');
+fadeEls.forEach(function(fadeEl, index) {
+  gsap.to(fadeEl, 1, {
+    // index는 0부터 시작, 0에다 곱해봐야 0이니까 index+1
+    //각각 0.7, 1.4, 2.1, 2.7초 뒤에 순차적으로 보이게
+    delay: (index+1) * .7,
+    opacity: 1
+  });
+});
