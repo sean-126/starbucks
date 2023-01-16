@@ -53,3 +53,50 @@ fadeEls.forEach(function(fadeEl, index) {
     opacity: 1
   });
 });
+
+
+// SWIPER
+
+// 공지사항 슬라이드
+new Swiper('.notice-line .swiper-container', {
+  direction: 'vertical',
+  autoplay: true,
+  loop: true
+});
+
+// 프로모션 슬라이드
+new Swiper('.promotion .swiper-container', {
+  slidesPerView: 3,
+  spaceBetween: 10,
+  centeredSlides: true,
+  loop: true,
+  // autoplay: {
+    // delay: 5000
+  // },
+  pagination: {
+    el: '.promotion .swiper-pagination', // 페이지 번호 요소 선택자
+    clickable: true //사용자의 페이지 번호 요소 제어, 클릭할 수 있냐 없냐
+  },
+  navigation: {
+    prevEl: '.promotion .swiper-prev',
+    nextEl: '.promotion .swiper-next'
+  }
+});
+
+// 토글 제어 누르면 열리고 누르면 닫히고
+// boolean 값으로 분기처리
+
+const promotionEl = document.querySelector('.promotion');
+const promotionToggleBtn = document.querySelector('.toggle-promotion');
+let isHidePromotion = false;
+
+promotionToggleBtn.addEventListener('click', function () {
+  isHidePromotion = !isHidePromotion // 느낌표 붙이면 반대가 되게 만든다.
+  if (isHidePromotion) {
+    // 반환된 isHidePromotion = true면 토글 숨김
+    promotionEl.classList.add('hide');
+  } else {
+    // 반환된 isHidePromotion = false면 토글 보임
+    promotionEl.classList.remove('hide');
+  }
+});
